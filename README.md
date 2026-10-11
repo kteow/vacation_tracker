@@ -29,13 +29,24 @@
 ## Структура проекта
 | Файл | Назначение |
 |------|------------|
-| src/main.py | код программы |
-| docs/diagrams/usecase.puml | текст диаграммы PlantUML |
-| docs/diagrams/usecase.png | картинка диаграммы |
-| README.md | описание проекта |
+| Файл | Назначение |
+|------|------------|
+| src/vacation_tracker/main.py | код программы |
+| docs/diagrams/usecase.puml | текст диаграммы Use Case |
+| docs/diagrams/usecase.png | диаграмма Use Case |
+| docs/diagrams/flowchart_request.png | блок-схема подачи и обработки заявки |
+| docs/diagrams/flowchart_vacation_accounting.png | блок-схема учёта отпусков |
+| requirements.txt | список зависимостей |
 
 ## Диаграмма Use Case
 ![Диаграмма Use Case](docs/diagrams/usecase.png)
+
+## Блок-схемы
+### Подача и обработка заявки на отпуск
+![Блок-схема заявки](docs/diagrams/flowchart_req.png)
+
+### Учёт отпусков сотрудника
+![Блок-схема учёта](docs/diagrams/flowchart_acc.png)
 
 ## Автор
 Германскова Е.В., гр. 26-ИВТ-2-1.
