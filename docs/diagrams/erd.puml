@@ -1,0 +1,57 @@
+@startuml erd  
+hide circle
+skinparam linetype ortho
+
+entity "user_roles" as user_roles {
+  * user_role_ID : int <<PK>>
+  --
+  * name : str
+}
+
+entity "departments" as departments {
+  * department_ID : int <<PK>>
+  --
+  * name : str
+}
+
+entity "vacation_types" as vacation_types {
+  * vacation_type_ID : int <<PK>>
+  --
+  * type_name : str
+}
+
+entity "request_statuses" as request_statuses {
+  * request_status_ID : int <<PK>>
+  --
+  * status : str
+}
+
+entity "employees" as employees {
+  * employee_ID : int <<PK>>
+  --
+  * name : str
+  * surname : str
+  patronymic : str
+  * login : str
+  * password_hash : str
+  * position : str
+  * user_role_ID : int <<FK>>
+  * department_ID : int <<FK>>
+}
+
+entity "vacation_requests" as vacation_requests {
+  * request_ID : int <<PK>>
+  --
+  * employee_ID : int <<FK>>
+  * vacation_type_ID : int <<FK>>
+  * start_date : str
+  * duration_days : int
+  * request_status : int <<FK>>
+}
+
+user_roles ||--o{ employees
+departments ||--o{ employees
+vacation_types ||--o{ vacation_requests
+request_statuses ||--o{ vacation_requests
+employees ||--o{ vacation_requests
+@enduml

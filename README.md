@@ -48,5 +48,24 @@
 ### Учёт отпусков сотрудника
 ![Блок-схема учёта](docs/diagrams/flowchart_acc.png)
 
+## База данных
+
+### ER-диаграмма
+
+![ER-диаграмма](diagrams/er_diagram.png)
+
+### Таблицы
+- departments — отделы
+- employees — сотрудники
+- vacation_types — типы отпусков
+- vacation_statuses — статусы отпусков
+- vacations — отпуска сотрудников
+
+### Создание базы
+```
+cd database
+python create_db.py
+```
+
 ## Автор
 Германскова Е.В., гр. 26-ИВТ-2-1.
