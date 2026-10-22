@@ -1,9 +1,8 @@
-import sqlite3  # встроенная в Python библиотека для работы с SQLite
+import sqlite3
 
-# Подключаемся к файлу базы данных (если файла нет, он создастся сам)
 connection = sqlite3.connect("vacations.db")
 
-# Включаем проверку внешних ключей (в SQLite она по умолчанию выключена)
+#Включаем проверку внешних ключей
 connection.execute("PRAGMA foreign_keys = ON")
 
 # Читаем SQL-запросы из файла scheme.sql
