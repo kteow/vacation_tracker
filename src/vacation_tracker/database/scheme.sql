@@ -7,7 +7,6 @@ DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS request_statuses;
 DROP TABLE IF EXISTS vacation_types;
 DROP TABLE IF EXISTS departments;
-DROP TABLE IF EXISTS user_roles;
 
 -- Роли пользователей (Администратор, Сотрудник)
 CREATE TABLE user_roles (
@@ -81,13 +80,6 @@ INSERT INTO request_statuses (status) VALUES
     ('Одобрена'),
     ('Отклонена');
 
--- Пароли для проверки: у администратора admin123, у сотрудников 123456
-INSERT INTO employees (name, surname, patronymic, login, password_hash, position, user_role_id, department_id) VALUES
-    ('Мария', 'Кузнецова', NULL, 'kuznetsova', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'Специалист по кадрам', 1, 1),
-    ('Анна', 'Иванова', 'Петровна', 'ivanova', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'Бухгалтер', 2, 2),
-    ('Олег', 'Смирнов', 'Игоревич', 'smirnov', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'Главный бухгалтер', 2, 2),
-    ('Дмитрий', 'Попов', 'Сергеевич', 'popov', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'Программист', 2, 3),
-    ('Елена', 'Соколова', 'Андреевна', 'sokolova', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'Системный администратор', 2, 3);
 
 INSERT INTO vacation_requests (employee_id, vacation_type_id, start_date, duration_days, request_status) VALUES
     (2, 1, '2026-07-01', 14, 2),

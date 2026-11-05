@@ -1,30 +1,19 @@
+import os
 import sqlite3
 
-connection = sqlite3.connect("vacations.db")
+# папка, где лежит этот файл (там же лежат scheme.sql и vacations.db)
+FOLDER = os.path.dirname(os.path.abspath(__file__))
+SCHEME_PATH = os.path.join(FOLDER, "scheme.sql")
+DB_PATH = os.path.join(FOLDER, "vacations.db")
 
-#Включаем проверку внешних ключей
-connection.execute("PRAGMA foreign_keys = ON")
+# читаем SQL-команды из scheme.sql
+with open(SCHEME_PATH, encoding="utf-8") as file:
+    script = file.read()
 
-# Читаем SQL-запросы из файла scheme.sql
-with open("scheme.sql", encoding="utf-8") as file:
-    sql_script = file.read()
+# создаём базу и выполняем все команды из файла
+conn = sqlite3.connect(DB_PATH)
+conn.executescript(script)
+conn.commit()
+conn.close()
 
-# Выполняем сразу все запросы из файла
-connection.executescript(sql_script)
-
-# Проверяем, что данные добавились: выводим заявки с фамилиями, видами и статусами
-cursor = connection.cursor()
-cursor.execute("""
-    SELECT employees.surname, vacation_types.type_name,
-           vacation_requests.start_date, vacation_requests.duration_days,
-           request_statuses.status
-    FROM vacation_requests
-    JOIN employees ON employees.employee_id = vacation_requests.employee_id
-    JOIN vacation_types ON vacation_types.vacation_type_id = vacation_requests.vacation_type_id
-    JOIN request_statuses ON request_statuses.request_status_id = vacation_requests.request_status
-""")
-for row in cursor.fetchall():
-    print(row)
-
-# Закрываем соединение
-connection.close()
+print("База создана:", DB_PATH)
