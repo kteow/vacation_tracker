@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<employees>
+    <employee>
+        <employee_id>1</employee_id>
+        <name>Админ</name>
+        <surname>Системный</surname>
+        <patronymic />
+        <login>admin</login>
+        <position>Администратор</position>
+        <department>
+            <id>3</id>
+            <name>IT-отдел</name>
+        </department>
+        <role>
+            <id>1</id>
+            <name>Администратор</name>
+        </role>
+    </employee>
+    <employee>
+        <employee_id>2</employee_id>
+        <name>Анастасия</name>
+        <surname>Телегина</surname>
+        <patronymic>Евгеньевна</patronymic>
+        <login>nastya67</login>
+        <position>Бухгалтер</position>
+        <department>
+            <id>2</id>
+            <name>Бухгалтерия</name>
+        </department>
+        <role>
+            <id>2</id>
+            <name>Сотрудник</name>
+        </role>
+    </employee>
+</employees>

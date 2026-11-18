@@ -1,5 +1,5 @@
 from services import auth_service, reference_service
-from services.auth_service import EMPLOYEE_ROLE_ID
+from constants import EMPLOYEE_ROLE_ID
 from ui.helpers import input_int
 
 def login():

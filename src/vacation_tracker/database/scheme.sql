@@ -79,11 +79,3 @@ INSERT INTO request_statuses (status) VALUES
     ('На рассмотрении'),
     ('Одобрена'),
     ('Отклонена');
-
-
-INSERT INTO vacation_requests (employee_id, vacation_type_id, start_date, duration_days, request_status) VALUES
-    (2, 1, '2026-07-01', 14, 2),
-    (3, 1, '2026-08-03', 21, 2),
-    (4, 1, '2026-12-21', 10, 1),
-    (5, 3, '2026-10-26', 5, 3),
-    (4, 2, '2026-11-02', 14, 2);

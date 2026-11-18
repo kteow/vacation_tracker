@@ -73,3 +73,27 @@ def delete(employee_id):
     cur.execute("DELETE FROM employees WHERE employee_id = ?", (employee_id,))
     conn.commit()
     conn.close()
+    
+def get_export_rows():
+    # запрос для выгрузки в файлы
+    # поля с "__" в названии потом станут вложенным объектом (department, role)
+    # password_hash сюда специально не включён: пароли выгружать нельзя
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT e.employee_id, e.name, e.surname, e.patronymic, e.login,
+               e.position,
+               d.department_id AS department__id,
+               d.name AS department__name,
+               r.user_role_id AS role__id,
+               r.name AS role__name
+        FROM employees e
+        JOIN departments d ON d.department_id = e.department_id
+        JOIN user_roles r ON r.user_role_id = e.user_role_id
+        ORDER BY e.employee_id
+    """)
+    columns = [c[0] for c in cur.description]   # названия столбцов из запроса
+    rows = cur.fetchall()
+    conn.close()
+    # каждую строку превращаем в словарь {название столбца: значение}
+    return [dict(zip(columns, row)) for row in rows]

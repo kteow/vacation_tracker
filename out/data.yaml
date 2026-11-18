@@ -1,0 +1,24 @@
+- employee_id: 1
+  name: Админ
+  surname: Системный
+  patronymic: null
+  login: admin
+  position: Администратор
+  department:
+    id: 3
+    name: IT-отдел
+  role:
+    id: 1
+    name: Администратор
+- employee_id: 2
+  name: Анастасия
+  surname: Телегина
+  patronymic: Евгеньевна
+  login: nastya67
+  position: Бухгалтер
+  department:
+    id: 2
+    name: Бухгалтерия
+  role:
+    id: 2
+    name: Сотрудник

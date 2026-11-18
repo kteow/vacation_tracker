@@ -1,5 +1,6 @@
+from constants import STATUS_PENDING
 from services import (employee_service, vacation_request_service,
-                      reference_service, report_service)
+                      reference_service, report_service, export_service)
 from ui.auth import register
 from ui.helpers import input_int, print_requests, print_schedule
 
@@ -10,6 +11,7 @@ def admin_menu(user):
         print("2. Меню отпусков")
         print("3. Меню сотрудников")
         print("4. Формирование отчётов")
+        print("5. Экспорт сотрудников (JSON, CSV, XML, YAML)")
         print("0. Выход")
         choice = input("Выберите действие: ")
 
@@ -21,6 +23,8 @@ def admin_menu(user):
             employees_menu(user)
         elif choice == "4":
             make_general_report()
+        elif choice == "5":
+            make_export()
         elif choice == "0":
             break
         else:
@@ -46,10 +50,10 @@ def requests_menu():
             print("Нет такого пункта")
 
 def process_requests():
-    # собираем заявки на рассмотрении (статус 1)
+    # собираем заявки на рассмотрении
     pending = []
     for r in vacation_request_service.get_all_requests():
-        if r.request_status == 1:
+        if r.request_status == STATUS_PENDING:
             pending.append(r)
     if not pending:
         print("Заявок на рассмотрении нет")
@@ -188,3 +192,13 @@ def make_general_report():
     print("\n" + text)
     path = report_service.save_report(text, "general_report.txt")
     print("Отчёт сохранён:", path)
+# ---------- Экспорт данных ----------
+
+def make_export():
+    try:
+        paths = export_service.export_all()
+        print("Файлы созданы:")
+        for p in paths:
+            print(" ", p)
+    except Exception as e:
+        print("Ошибка:", e)

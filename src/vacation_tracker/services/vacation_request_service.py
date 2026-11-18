@@ -1,9 +1,6 @@
 from datetime import datetime, timedelta   # для работы с датами
 from repositories import vacation_request_repository, vacation_type_repository
-
-STATUS_PENDING = 1    # номера статусов из таблицы request_statuses
-STATUS_APPROVED = 2
-STATUS_REJECTED = 3
+from constants import STATUS_PENDING, STATUS_APPROVED, STATUS_REJECTED
 
 def _parse_date(text):
     # превращаем текст "2026-12-21" в дату; если формат неверный, будет ошибка

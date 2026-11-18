@@ -1,7 +1,9 @@
 from ui.auth import login, register
 from ui.admin_menu import admin_menu
 from ui.employee_menu import employee_menu
-from services.auth_service import ADMIN_ROLE_ID
+from database.database import init_database
+from services.auth_service import create_default_admin
+from constants import ADMIN_ROLE_ID
 
 def main():
     while True:
@@ -29,4 +31,6 @@ def main():
 
 # этот блок запускает программу, только если запустить именно main.py
 if __name__ == "__main__":
+    init_database()          # создаём таблицы, если их ещё нет
+    create_default_admin()   # создаём администратора, если его ещё нет
     main()

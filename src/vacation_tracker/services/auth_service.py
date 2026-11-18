@@ -1,8 +1,8 @@
-from repositories import employee_repository
+from repositories import (employee_repository, user_role_repository,
+                          department_repository)
 from services.password_service import hash_password, check_password
-
-ADMIN_ROLE_ID = 1      # номера ролей из таблицы user_roles
-EMPLOYEE_ROLE_ID = 2
+from constants import (ADMIN_ROLE_ID, EMPLOYEE_ROLE_ID, MIN_PASSWORD_LENGTH,
+                       DEFAULT_ADMIN_LOGIN, DEFAULT_ADMIN_PASSWORD)
 
 def authenticate(login, password):
     # ищем сотрудника по логину
@@ -20,8 +20,8 @@ def register_employee(name, surname, patronymic, login, password,
         raise Exception("Фамилия не может быть пустой")
     if not login.strip():
         raise Exception("Логин не может быть пустым")
-    if len(password) < 6:
-        raise Exception("Пароль должен быть не короче 6 символов")
+    if len(password) < MIN_PASSWORD_LENGTH:
+        raise Exception(f"Пароль должен быть не короче {MIN_PASSWORD_LENGTH} символов")
     if not position.strip():
         raise Exception("Должность не может быть пустой")
     if role_id not in (ADMIN_ROLE_ID, EMPLOYEE_ROLE_ID):
@@ -33,6 +33,27 @@ def register_employee(name, surname, patronymic, login, password,
 
     employee_repository.create(
         name.strip(), surname.strip(), patronymic, login.strip(),
-        hash_password(password),
+        hash_password(password),    # в базу попадает только хеш с солью
         position.strip(), role_id, department_id
+    )
+
+def create_default_admin():
+    # вызывается при запуске программы: гарантирует, что в системе есть администратор
+
+    # если справочники пустые, заполняем их (без них нельзя создать сотрудника)
+    if not user_role_repository.get_all():
+        user_role_repository.create("Администратор")
+        user_role_repository.create("Сотрудник")
+    if not department_repository.get_all():
+        department_repository.create("Отдел кадров")
+
+    # если администратор уже есть, ничего не делаем
+    if employee_repository.get_by_login(DEFAULT_ADMIN_LOGIN):
+        return
+
+    department = department_repository.get_all()[0]
+    employee_repository.create(
+        "Админ", "Системный", None, DEFAULT_ADMIN_LOGIN,
+        hash_password(DEFAULT_ADMIN_PASSWORD),
+        "Администратор", ADMIN_ROLE_ID, department.department_id
     )
